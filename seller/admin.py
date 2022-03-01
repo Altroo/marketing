@@ -17,7 +17,10 @@ class CustomSellerAdmin(ModelAdmin):
     autocomplete_fields = ['city']
 
     def get_city_fr(self, obj):
-        return obj.city.city_fr
+        try:
+            return obj.city.city_fr
+        except AttributeError:
+            return ''
 
     get_city_fr.admin_order_field = 'city'
     get_city_fr.short_description = 'Ville'
@@ -144,9 +147,6 @@ class CustomCitiesAdmin(ModelAdmin):
     list_display = ('pk', 'city_fr')
     search_fields = ('pk', 'city_fr')
     ordering = ('city_fr',)
-
-    def get_model_perms(self, request):
-        return {}
 
 
 class CustomCollectionsAdmin(ModelAdmin):
