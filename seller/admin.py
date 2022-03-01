@@ -148,6 +148,9 @@ class CustomCitiesAdmin(ModelAdmin):
     search_fields = ('pk', 'city_fr')
     ordering = ('city_fr',)
 
+    def get_model_perms(self, request):
+        return {}
+
 
 class CustomCollectionsAdmin(ModelAdmin):
     list_display = ('pk', 'collection_name', 'h1', 'collection_link')
