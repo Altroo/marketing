@@ -7,11 +7,12 @@ from django.utils.html import format_html
 
 
 class CustomSellerAdmin(ModelAdmin):
+    change_form_template = 'custom_change_form.html'
     list_display = ('pk', 'seller_name', 'get_seller_link',
                     'get_city_fr', 'number_of_products',
-                    'seller_status', 'seller_type', 'processed_status')
+                    'seller_status', 'seller_type', 'processed_status', 'pipass')
     search_fields = ('pk', 'seller_name', 'seller_link', 'city__city_fr')
-    list_filter = ('seller_status', 'seller_type', 'processed_status')
+    list_filter = ('seller_status', 'seller_type', 'processed_status', 'pipass')
     list_display_links = ('pk', 'seller_name')
     ordering = ('-pk',)
     autocomplete_fields = ['city']
@@ -54,7 +55,7 @@ class CustomSellerAdmin(ModelAdmin):
 class CustomProductAdmin(ModelAdmin):
     list_display = ('pk', 'get_seller_name_link', 'product_title', 'price',
                     'show_categories', 'show_sous_categories', 'show_cible',
-                    'show_offer_type', 'color', 'show_collections')
+                    'show_offer_type', 'show_colors', 'show_collections')
     search_fields = ('pk', 'seller__seller_name', 'seller__seller_link',
                      'product_title', 'price', 'category__name_category', 'color__name_color',
                      'collections__collection_name')
@@ -83,6 +84,11 @@ class CustomProductAdmin(ModelAdmin):
         return ",\n".join([i.name_category for i in obj.category.all()])
 
     show_categories.short_description = 'Catégories'
+
+    def show_colors(self, obj):
+        return ",\n".join([i.name_color for i in obj.color.all()])
+
+    show_colors.short_description = 'Couleurs'
 
     def show_sous_categories(self, obj):
         return ",\n".join([i.name_sous_category for i in obj.sous_category.all()])

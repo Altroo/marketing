@@ -41,7 +41,7 @@ class Seller(Model):
     seller_type = models.CharField(verbose_name='Type de vendeur', max_length=1,
                                    choices=MarketingChoices.SELLER_TYPE_CHOICES, default='V')
     processed_status = models.BooleanField(verbose_name='Traiter', default=False)
-
+    pipass = models.BooleanField(verbose_name='Pipass', default=False)
     # Dates
     created_date = models.DateTimeField(verbose_name='Created date', editable=False, auto_now_add=True, db_index=True)
     updated_date = models.DateTimeField(verbose_name='Updated date', editable=False, auto_now=True)
@@ -141,8 +141,8 @@ class Product(Model):
     product_link = models.URLField(verbose_name='Lien de produit', blank=True, null=True, default=None)
     price = models.FloatField(verbose_name='Prix', default=0.0, blank=True, null=True)
     offer_type = models.ManyToManyField(OfferType, verbose_name="Type d'offre", related_name='product_offer_type')
-    color = models.ForeignKey(Colors, verbose_name='Couleur produit', max_length=2, on_delete=models.CASCADE,
-                              related_name='product_color', null=True, blank=True)
+    color = models.ManyToManyField(Colors, verbose_name='Couleur produit', max_length=2,
+                                   related_name='product_color', blank=True)
     collections = models.ManyToManyField(Collection, verbose_name='Collections',
                                          related_name='product_collections', blank=True)
     # Dates
@@ -156,7 +156,6 @@ class Product(Model):
         verbose_name = 'Produit'
         verbose_name_plural = 'Produits'
         ordering = ('created_date',)
-
 
 # class Service(Model):
 #     seller = models.ForeignKey(Seller, verbose_name='Vendeur', blank=True, null=True, on_delete=models.CASCADE,
