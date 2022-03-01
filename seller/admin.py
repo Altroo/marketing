@@ -8,12 +8,12 @@ from django.utils.html import format_html
 
 class CustomSellerAdmin(ModelAdmin):
     change_form_template = 'custom_change_form.html'
-    list_display = ('pk', 'seller_name', 'get_seller_link',
+    list_display = ('seller_name', 'get_seller_link',
                     'get_city_fr', 'number_of_products',
-                    'seller_status', 'seller_type', 'processed_status', 'pipass')
-    search_fields = ('pk', 'seller_name', 'seller_link', 'city__city_fr')
+                    'seller_status', 'seller_type', 'processed_status', 'pipass', 'voir')
+    search_fields = ('seller_name', 'seller_link', 'city__city_fr')
     list_filter = ('seller_status', 'seller_type', 'processed_status', 'pipass')
-    list_display_links = ('pk', 'seller_name')
+    # list_display_links = ('seller_name',)
     ordering = ('-pk',)
     autocomplete_fields = ['city']
 
@@ -34,6 +34,15 @@ class CustomSellerAdmin(ModelAdmin):
     get_seller_link.short_description = 'Coordonnées du vendeur'
     get_seller_link.allow_tags = True
 
+    def voir(self, obj):
+        return format_html(
+            '<a class="grp-button" href="{0}{1}/change/">Voir</a>',
+            reverse('admin:seller_seller_changelist'), obj.id
+        )
+
+    voir.short_description = 'Actions'
+    voir.allow_tags = True
+
     fieldsets = (
         ('Coordonnées', {
             'classes': ('grp-collapse grp-open',),
@@ -53,14 +62,14 @@ class CustomSellerAdmin(ModelAdmin):
 
 
 class CustomProductAdmin(ModelAdmin):
-    list_display = ('pk', 'get_seller_name_link', 'product_title', 'price',
+    list_display = ('get_seller_name_link', 'product_title', 'price',
                     'show_categories', 'show_sous_categories', 'show_cible',
-                    'show_offer_type', 'show_colors', 'show_collections')
-    search_fields = ('pk', 'seller__seller_name', 'seller__seller_link',
+                    'show_offer_type', 'show_colors', 'show_collections', 'voir')
+    search_fields = ('seller__seller_name', 'seller__seller_link',
                      'product_title', 'price', 'category__name_category', 'color__name_color',
                      'collections__collection_name')
     list_filter = ('category', 'sous_category', 'offer_type', 'color')
-    ordering = ('-pk', 'seller')
+    ordering = ('pk',)
     # Require model to be registered + custom admin class with the fields in search_fields
     autocomplete_fields = ['category', 'seller', 'cible', 'sous_category',
                            'offer_type', 'color', 'collections']
@@ -79,6 +88,15 @@ class CustomProductAdmin(ModelAdmin):
 
     get_seller_name_link.short_description = 'Vendeur'
     get_seller_name_link.allow_tags = True
+
+    def voir(self, obj):
+        return format_html(
+            '<a class="grp-button" href="{0}{1}/change/">Voir</a>',
+            reverse('admin:seller_product_changelist'), obj.id
+        )
+
+    voir.short_description = 'Actions'
+    voir.allow_tags = True
 
     def show_categories(self, obj):
         return ",\n".join([i.name_category for i in obj.category.all()])
@@ -135,8 +153,8 @@ class CustomProductAdmin(ModelAdmin):
 
 
 class CustomCategoriesAdmin(ModelAdmin):
-    list_display = ('pk', 'name_category')
-    search_fields = ('pk', 'name_category')
+    list_display = ('name_category',)
+    search_fields = ('name_category',)
     ordering = ('name_category',)
 
     def get_model_perms(self, request):
@@ -144,14 +162,23 @@ class CustomCategoriesAdmin(ModelAdmin):
 
 
 class CustomSousCategoriesAdmin(ModelAdmin):
-    list_display = ('pk', 'name_sous_category')
-    search_fields = ('pk', 'name_sous_category')
+    list_display = ('name_sous_category', 'voir')
+    search_fields = ('name_sous_category',)
     ordering = ('name_sous_category',)
+
+    def voir(self, obj):
+        return format_html(
+            '<a class="grp-button" href="{0}{1}/change/">Voir</a>',
+            reverse('admin:seller_souscategories_changelist'), obj.id
+        )
+
+    voir.short_description = 'Actions'
+    voir.allow_tags = True
 
 
 class CustomCitiesAdmin(ModelAdmin):
-    list_display = ('pk', 'city_fr')
-    search_fields = ('pk', 'city_fr')
+    list_display = ('city_fr',)
+    search_fields = ('city_fr',)
     ordering = ('city_fr',)
 
     def get_model_perms(self, request):
@@ -159,15 +186,24 @@ class CustomCitiesAdmin(ModelAdmin):
 
 
 class CustomCollectionsAdmin(ModelAdmin):
-    list_display = ('pk', 'collection_name', 'h1', 'collection_link')
-    search_fields = ('pk', 'collection_name', 'h1', 'collection_link', 'meta_description', 'paragraphe')
-    list_display_links = ('pk', 'collection_name')
+    list_display = ('collection_name', 'h1', 'collection_link', 'voir')
+    search_fields = ('collection_name', 'h1', 'collection_link', 'meta_description', 'paragraphe')
+    list_display_links = ('collection_name',)
     ordering = ('collection_name',)
+
+    def voir(self, obj):
+        return format_html(
+            '<a class="grp-button" href="{0}{1}/change/">Voir</a>',
+            reverse('admin:seller_collection_changelist'), obj.id
+        )
+
+    voir.short_description = 'Actions'
+    voir.allow_tags = True
 
 
 class CustomCibleAdmin(ModelAdmin):
-    list_display = ('pk', 'name_cible')
-    search_fields = ('pk', 'name_cible')
+    list_display = ('name_cible',)
+    search_fields = ('name_cible',)
     ordering = ('name_cible',)
 
     def get_model_perms(self, request):
@@ -175,8 +211,8 @@ class CustomCibleAdmin(ModelAdmin):
 
 
 class CustomOfferTypeAdmin(ModelAdmin):
-    list_display = ('pk', 'name_offer')
-    search_fields = ('pk', 'name_offer')
+    list_display = ('name_offer',)
+    search_fields = ('name_offer',)
     ordering = ('name_offer',)
 
     def get_model_perms(self, request):
@@ -184,8 +220,8 @@ class CustomOfferTypeAdmin(ModelAdmin):
 
 
 class CustomColorsAdmin(ModelAdmin):
-    list_display = ('pk', 'name_color')
-    search_fields = ('pk', 'name_color')
+    list_display = ('name_color',)
+    search_fields = ('name_color',)
     ordering = ('name_color',)
 
     def get_model_perms(self, request):
