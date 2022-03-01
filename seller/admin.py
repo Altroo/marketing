@@ -41,7 +41,7 @@ class CustomSellerAdmin(ModelAdmin):
         }),
         ('Status', {
             'classes': ('grp-collapse grp-open',),
-            'fields': ('processed_status', 'seller_status', 'seller_type',),
+            'fields': ('processed_status', 'seller_status', 'seller_type', 'pipass'),
         }),
     )
 
