@@ -27,7 +27,7 @@ class CustomSellerAdmin(ModelAdmin):
 
     def get_seller_link(self, obj):
         return format_html(
-            '<a class="grp-button" href="{0}">{1}</a>', obj.seller_link, obj.seller_link
+            '<a href="{0}" target="_blank">{1}</a>', obj.seller_link, obj.seller_link
         )
 
     get_seller_link.short_description = 'Coordonnées du vendeur'
