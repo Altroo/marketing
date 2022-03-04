@@ -1,6 +1,7 @@
 from django.contrib.auth.models import User
 from django.db import models
 from django.db.models import Model
+from django.contrib.postgres.fields import CICharField
 
 
 class Cible(Model):
@@ -40,7 +41,7 @@ class Vendeur(Model):
 
 
 class Categorie(Model):
-    titre_categorie = models.CharField(max_length=255, verbose_name='Titre catégorie', unique=True)
+    titre_categorie = CICharField(max_length=255, verbose_name='Titre catégorie', unique=True)
     lien_categorie = models.CharField(verbose_name='URL', blank=True, null=True, default=None, max_length=255)
     meta_description_categorie = models.TextField(verbose_name='Meta-déscription', blank=True, null=True)
     h1_categorie = models.CharField(verbose_name='H1', max_length=150, blank=True, null=True)
@@ -59,7 +60,7 @@ class Categorie(Model):
 
 
 class GroupeDeProduit(Model):
-    titre_groupe_de_produit = models.CharField(max_length=255, verbose_name='Titre groupe de produit', unique=True)
+    titre_groupe_de_produit = CICharField(max_length=255, verbose_name='Titre groupe de produit', unique=True)
     lien_groupe_de_produit = models.CharField(verbose_name='URL', blank=True, null=True, default=None, max_length=255)
     meta_description_groupe_de_produit = models.TextField(verbose_name='Meta-déscription', blank=True, null=True)
     h1_groupe_de_produit = models.CharField(verbose_name='H1', max_length=150, blank=True, null=True)
@@ -78,7 +79,7 @@ class GroupeDeProduit(Model):
 
 
 class Produit(Model):
-    titre_produit = models.CharField(max_length=255, verbose_name='Titre produit', unique=True)
+    titre_produit = CICharField(max_length=255, verbose_name='Titre produit', unique=True)
     lien_produit = models.CharField(verbose_name='URL', blank=True, null=True, default=None, max_length=255)
     meta_description_produit = models.TextField(verbose_name='Meta-déscription', blank=True, null=True)
     h1_produit = models.CharField(verbose_name='H1', max_length=150, blank=True, null=True)
@@ -97,7 +98,7 @@ class Produit(Model):
 
 
 class Style(Model):
-    titre_style = models.CharField(max_length=255, verbose_name='Titre style', unique=True)
+    titre_style = CICharField(max_length=255, verbose_name='Titre style', unique=True)
     lien_style = models.CharField(verbose_name='URL', blank=True, null=True, default=None, max_length=255)
     meta_description_style = models.TextField(verbose_name='Meta-déscription', blank=True, null=True)
     h1_style = models.CharField(verbose_name='H1', max_length=150, blank=True, null=True)

@@ -5,12 +5,14 @@ from django.contrib import admin
 from .models import Vendeur, VendeurCategorie
 from django.utils.html import format_html
 from more_admin_filters import MultiSelectDropdownFilter
+from django.contrib.auth.models import User
 
 
 class VendeurCategoriesInline(NestedStackedInline):
     model = VendeurCategorie
     extra = 0
     filter_horizontal = ('categorie', 'groupe_de_produit', 'produit', 'style', 'cible')
+    autocomplete_fields = ['categorie', 'groupe_de_produit', 'produit', 'style', 'cible']
 
 
 class VendeurAdmin(NestedModelAdmin):
@@ -84,6 +86,9 @@ class CategorieAdmin(admin.ModelAdmin):
         except IndexError:
             pass
         return fields
+
+    # def get_users(self, obj):
+    #     return User.objects.filter(is_superuser=False)
 
 
 class ProduitAdmin(admin.ModelAdmin):
