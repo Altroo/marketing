@@ -40,7 +40,7 @@ class Vendeur(Model):
 
 class Categorie(Model):
     titre_categorie = models.CharField(max_length=255, verbose_name='Titre catégorie', unique=True)
-    lien_categorie = models.URLField(verbose_name='Lien catégorie', blank=True, null=True, default=None)
+    lien_categorie = models.CharField(verbose_name='URL', blank=True, null=True, default=None, max_length=255)
     meta_description_categorie = models.TextField(verbose_name='Meta-déscription', blank=True, null=True)
     h1_categorie = models.CharField(verbose_name='H1', max_length=150, blank=True, null=True)
     paragraphe_categorie = models.TextField(verbose_name='Paragraphe', blank=True, null=True)
@@ -57,7 +57,7 @@ class Categorie(Model):
 
 class GroupeDeProduit(Model):
     titre_groupe_de_produit = models.CharField(max_length=255, verbose_name='Titre groupe de produit', unique=True)
-    lien_groupe_de_produit = models.URLField(verbose_name='Lien groupe de produit', blank=True, null=True, default=None)
+    lien_groupe_de_produit = models.CharField(verbose_name='URL', blank=True, null=True, default=None, max_length=255)
     meta_description_groupe_de_produit = models.TextField(verbose_name='Meta-déscription', blank=True, null=True)
     h1_groupe_de_produit = models.CharField(verbose_name='H1', max_length=150, blank=True, null=True)
     paragraphe_groupe_de_produit = models.TextField(verbose_name='Paragraphe', blank=True, null=True)
@@ -74,7 +74,7 @@ class GroupeDeProduit(Model):
 
 class Produit(Model):
     titre_produit = models.CharField(max_length=255, verbose_name='Titre produit', unique=True)
-    lien_produit = models.URLField(verbose_name='Lien produit', blank=True, null=True, default=None)
+    lien_produit = models.CharField(verbose_name='URL', blank=True, null=True, default=None, max_length=255)
     meta_description_produit = models.TextField(verbose_name='Meta-déscription', blank=True, null=True)
     h1_produit = models.CharField(verbose_name='H1', max_length=150, blank=True, null=True)
     paragraphe_produit = models.TextField(verbose_name='Paragraphe', blank=True, null=True)
@@ -91,7 +91,7 @@ class Produit(Model):
 
 class Style(Model):
     titre_style = models.CharField(max_length=255, verbose_name='Titre style', unique=True)
-    lien_style = models.URLField(verbose_name='Lien style', blank=True, null=True, default=None)
+    lien_style = models.CharField(verbose_name='URL', blank=True, null=True, default=None, max_length=255)
     meta_description_style = models.TextField(verbose_name='Meta-déscription', blank=True, null=True)
     h1_style = models.CharField(verbose_name='H1', max_length=150, blank=True, null=True)
     paragraphe_style = models.TextField(verbose_name='Paragraphe', blank=True, null=True)
@@ -118,7 +118,7 @@ class VendeurCategorie(Model):
                                    related_name='vendeurcategorie_style')
     cible = models.ManyToManyField(Cible, verbose_name='Cible', blank=True,
                                    related_name='vendeurcategorie_cible')
-    lien_vendeurcategorie = models.URLField(verbose_name='Lien', blank=True, null=True, default=None)
+    lien_vendeurcategorie = models.URLField(verbose_name='URL', blank=True, null=True, default=None)
 
     def __str__(self):
         return '{}'.format(self.vendeur.nom_vendeur)
