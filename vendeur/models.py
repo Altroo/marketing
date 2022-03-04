@@ -126,7 +126,7 @@ class VendeurCategorie(Model):
     produit = models.ManyToManyField(Produit, verbose_name='Tag',
                                      related_name='vendeurcategorie_produit')
     style = models.ManyToManyField(Style, verbose_name='Style',
-                                   related_name='vendeurcategorie_style')
+                                   related_name='vendeurcategorie_style', blank=True)
     cible = models.ManyToManyField(Cible, verbose_name='Cible',
                                    related_name='vendeurcategorie_cible')
     lien_vendeurcategorie = models.URLField(verbose_name='URL', blank=False, null=False, default=None)
