@@ -5,12 +5,11 @@ from django.contrib import admin
 from .models import Vendeur, VendeurCategorie
 from django.utils.html import format_html
 from more_admin_filters import MultiSelectDropdownFilter
-from django.contrib.auth.models import User
 
 
 class VendeurCategoriesInline(NestedStackedInline):
     model = VendeurCategorie
-    extra = 0
+    extra = 1
     filter_horizontal = ('categorie', 'groupe_de_produit', 'produit', 'style', 'cible')
     autocomplete_fields = ['categorie', 'groupe_de_produit', 'produit', 'style', 'cible']
 
@@ -48,8 +47,7 @@ class CategorieAdmin(admin.ModelAdmin):
     list_editable = ('referencer_categorie', 'utilisateur')
     list_filter = ('referencer_categorie', 'utilisateur')
     ordering = ('-pk',)
-    search_fields = ('titre_categorie', 'lien_categorie', 'meta_description_categorie', 'h1_categorie',
-                     'paragraphe_categorie', 'utilisateur')
+    search_fields = ('titre_categorie',)
 
     def get_nbr_groupe_de_produit(self, obj):
         vendeur_categories = VendeurCategorie.objects.filter(categorie=obj.pk)
@@ -69,7 +67,7 @@ class CategorieAdmin(admin.ModelAdmin):
             return html_
         return 0
 
-    get_nbr_groupe_de_produit.short_description = 'Nbr GDP'
+    get_nbr_groupe_de_produit.short_description = 'Nbr Produits'
     get_nbr_groupe_de_produit.allow_tags = True
 
     def get_fields(self, request, obj=None):
@@ -97,8 +95,7 @@ class ProduitAdmin(admin.ModelAdmin):
     list_editable = ('referencer_produit', 'utilisateur')
     list_filter = ('referencer_produit', 'utilisateur')
     ordering = ('-pk',)
-    search_fields = ('titre_produit', 'lien_produit', 'meta_description_produit', 'h1_produit',
-                     'paragraphe_produit', 'utilisateur')
+    search_fields = ('titre_produit',)
 
     def get_nbr_vendeurs(self, obj):
         vendeur_categorie = VendeurCategorie.objects.filter(produit=obj.pk)
@@ -141,9 +138,7 @@ class GroupeDeProduitAdmin(admin.ModelAdmin):
     list_editable = ('referencer_groupe_de_produit', 'utilisateur')
     list_filter = ('referencer_groupe_de_produit', 'utilisateur')
     ordering = ('-pk',)
-    search_fields = ('titre_groupe_de_produit', 'lien_groupe_de_produit',
-                     'meta_description_groupe_de_produit',
-                     'h1_groupe_de_produit', 'paragraphe_groupe_de_produit', 'utilisateur')
+    search_fields = ('titre_groupe_de_produit',)
 
     def get_nbr_produit(self, obj):
         vendeur_categorie = VendeurCategorie.objects.filter(groupe_de_produit=obj.pk)
@@ -162,7 +157,7 @@ class GroupeDeProduitAdmin(admin.ModelAdmin):
             return html_
         return 0
 
-    get_nbr_produit.short_description = 'Nbr de Produits'
+    get_nbr_produit.short_description = 'Nbr de Tags'
     get_nbr_produit.allow_tags = True
 
     def get_fields(self, request, obj=None):
@@ -187,9 +182,7 @@ class StyleAdmin(admin.ModelAdmin):
     list_editable = ('referencer_style', 'utilisateur')
     list_filter = ('referencer_style', 'utilisateur')
     ordering = ('-pk',)
-    search_fields = ('titre_style', 'lien_style',
-                     'meta_description_style',
-                     'h1_style', 'paragraphe_style', 'utilisateur')
+    search_fields = ('titre_style',)
 
     def get_nbr_produit(self, obj):
         vendeur_categorie = VendeurCategorie.objects.filter(style=obj.pk)
@@ -208,7 +201,7 @@ class StyleAdmin(admin.ModelAdmin):
             return html_
         return 0
 
-    get_nbr_produit.short_description = 'Nbr de Produits'
+    get_nbr_produit.short_description = 'Nbr de Tags'
     get_nbr_produit.allow_tags = True
 
     def get_fields(self, request, obj=None):
