@@ -1,3 +1,4 @@
+from django.contrib.auth.models import User
 from django.db import models
 from django.db.models import Model
 
@@ -45,6 +46,8 @@ class Categorie(Model):
     h1_categorie = models.CharField(verbose_name='H1', max_length=150, blank=True, null=True)
     paragraphe_categorie = models.TextField(verbose_name='Paragraphe', blank=True, null=True)
     referencer_categorie = models.BooleanField(verbose_name='Référencé', default=False)
+    utilisateur = models.ForeignKey(User, verbose_name='Utilisateur', on_delete=models.SET_NULL,
+                                    null=True, blank=True, default=None)
 
     def __str__(self):
         return '{}'.format(self.titre_categorie)
@@ -62,6 +65,8 @@ class GroupeDeProduit(Model):
     h1_groupe_de_produit = models.CharField(verbose_name='H1', max_length=150, blank=True, null=True)
     paragraphe_groupe_de_produit = models.TextField(verbose_name='Paragraphe', blank=True, null=True)
     referencer_groupe_de_produit = models.BooleanField(verbose_name='Référencé', default=False)
+    utilisateur = models.ForeignKey(User, verbose_name='Utilisateur', on_delete=models.SET_NULL,
+                                    null=True, blank=True, default=None)
 
     def __str__(self):
         return '{}'.format(self.titre_groupe_de_produit)
@@ -79,6 +84,8 @@ class Produit(Model):
     h1_produit = models.CharField(verbose_name='H1', max_length=150, blank=True, null=True)
     paragraphe_produit = models.TextField(verbose_name='Paragraphe', blank=True, null=True)
     referencer_produit = models.BooleanField(verbose_name='Référencé', default=False)
+    utilisateur = models.ForeignKey(User, verbose_name='Utilisateur', on_delete=models.SET_NULL,
+                                    null=True, blank=True, default=None)
 
     def __str__(self):
         return '{}'.format(self.titre_produit)
@@ -96,6 +103,8 @@ class Style(Model):
     h1_style = models.CharField(verbose_name='H1', max_length=150, blank=True, null=True)
     paragraphe_style = models.TextField(verbose_name='Paragraphe', blank=True, null=True)
     referencer_style = models.BooleanField(verbose_name='Référencé', default=False)
+    utilisateur = models.ForeignKey(User, verbose_name='Utilisateur', on_delete=models.SET_NULL,
+                                    null=True, blank=True, default=None)
 
     def __str__(self):
         return '{}'.format(self.titre_style)

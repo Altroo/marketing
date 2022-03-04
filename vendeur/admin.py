@@ -18,7 +18,7 @@ class VendeurAdmin(NestedModelAdmin):
     list_editable = ('contacter', 'pipass')
     list_display_links = ('nom_vendeur',)
     search_fields = ('nom_vendeur', 'lien_vendeur', 'vendeurcategorie_vendeur__categorie__titre_categorie')
-    ordering = ('pk',)
+    ordering = ('-pk',)
     date_hierarchy = 'created_date'
     list_filter = [
         ('vendeurcategorie_vendeur__categorie__titre_categorie', MultiSelectDropdownFilter),
@@ -41,13 +41,13 @@ class VendeurAdmin(NestedModelAdmin):
 
 
 class CategorieAdmin(admin.ModelAdmin):
-    list_display = ('titre_categorie', 'get_nbr_groupe_de_produit', 'referencer_categorie')
+    list_display = ('titre_categorie', 'get_nbr_groupe_de_produit', 'referencer_categorie', 'utilisateur')
     list_display_links = ('titre_categorie',)
-    list_editable = ('referencer_categorie',)
-    list_filter = ('referencer_categorie',)
-    ordering = ('titre_categorie',)
+    list_editable = ('referencer_categorie', 'utilisateur')
+    list_filter = ('referencer_categorie', 'utilisateur')
+    ordering = ('-pk',)
     search_fields = ('titre_categorie', 'lien_categorie', 'meta_description_categorie', 'h1_categorie',
-                     'paragraphe_categorie')
+                     'paragraphe_categorie', 'utilisateur')
 
     def get_nbr_groupe_de_produit(self, obj):
         vendeur_categories = VendeurCategorie.objects.filter(categorie=obj.pk)
@@ -87,13 +87,13 @@ class CategorieAdmin(admin.ModelAdmin):
 
 
 class ProduitAdmin(admin.ModelAdmin):
-    list_display = ('titre_produit', 'get_nbr_vendeurs', 'referencer_produit')
+    list_display = ('titre_produit', 'get_nbr_vendeurs', 'referencer_produit', 'utilisateur')
     list_display_links = ('titre_produit',)
-    list_editable = ('referencer_produit',)
-    list_filter = ('referencer_produit',)
-    ordering = ('titre_produit',)
+    list_editable = ('referencer_produit', 'utilisateur')
+    list_filter = ('referencer_produit', 'utilisateur')
+    ordering = ('-pk',)
     search_fields = ('titre_produit', 'lien_produit', 'meta_description_produit', 'h1_produit',
-                     'paragraphe_produit')
+                     'paragraphe_produit', 'utilisateur')
 
     def get_nbr_vendeurs(self, obj):
         vendeur_categorie = VendeurCategorie.objects.filter(produit=obj.pk)
@@ -131,14 +131,14 @@ class ProduitAdmin(admin.ModelAdmin):
 
 
 class GroupeDeProduitAdmin(admin.ModelAdmin):
-    list_display = ('titre_groupe_de_produit', 'get_nbr_produit', 'referencer_groupe_de_produit')
+    list_display = ('titre_groupe_de_produit', 'get_nbr_produit', 'referencer_groupe_de_produit', 'utilisateur')
     list_display_links = ('titre_groupe_de_produit',)
-    list_editable = ('referencer_groupe_de_produit',)
-    list_filter = ('referencer_groupe_de_produit',)
-    ordering = ('titre_groupe_de_produit',)
+    list_editable = ('referencer_groupe_de_produit', 'utilisateur')
+    list_filter = ('referencer_groupe_de_produit', 'utilisateur')
+    ordering = ('-pk',)
     search_fields = ('titre_groupe_de_produit', 'lien_groupe_de_produit',
                      'meta_description_groupe_de_produit',
-                     'h1_groupe_de_produit', 'paragraphe_groupe_de_produit')
+                     'h1_groupe_de_produit', 'paragraphe_groupe_de_produit', 'utilisateur')
 
     def get_nbr_produit(self, obj):
         vendeur_categorie = VendeurCategorie.objects.filter(groupe_de_produit=obj.pk)
@@ -177,14 +177,14 @@ class GroupeDeProduitAdmin(admin.ModelAdmin):
 
 
 class StyleAdmin(admin.ModelAdmin):
-    list_display = ('titre_style', 'get_nbr_produit', 'referencer_style')
+    list_display = ('titre_style', 'get_nbr_produit', 'referencer_style', 'utilisateur')
     list_display_links = ('titre_style',)
-    list_editable = ('referencer_style',)
-    list_filter = ('referencer_style',)
-    ordering = ('titre_style',)
+    list_editable = ('referencer_style', 'utilisateur')
+    list_filter = ('referencer_style', 'utilisateur')
+    ordering = ('-pk',)
     search_fields = ('titre_style', 'lien_style',
                      'meta_description_style',
-                     'h1_style', 'paragraphe_style')
+                     'h1_style', 'paragraphe_style', 'utilisateur')
 
     def get_nbr_produit(self, obj):
         vendeur_categorie = VendeurCategorie.objects.filter(style=obj.pk)
