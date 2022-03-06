@@ -129,7 +129,7 @@ class VendeurCategorie(Model):
                                    related_name='vendeurcategorie_style', blank=True)
     cible = models.ManyToManyField(Cible, verbose_name='Cible',
                                    related_name='vendeurcategorie_cible')
-    lien_vendeurcategorie = models.URLField(verbose_name='URL', blank=False, null=False, default=None)
+    lien_vendeurcategorie = models.URLField(verbose_name='URL', blank=True, null=True, default=None)
 
     def __str__(self):
         return '{}'.format(self.vendeur.nom_vendeur)
