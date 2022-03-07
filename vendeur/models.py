@@ -124,7 +124,7 @@ class VendeurCategorie(Model):
     groupe_de_produit = models.ManyToManyField(GroupeDeProduit, verbose_name='Collection',
                                                related_name='vendeurcategorie_groupe_de_produit')
     produit = models.ManyToManyField(Produit, verbose_name='Tag',
-                                     related_name='vendeurcategorie_produit')
+                                     related_name='vendeurcategorie_produit', blank=True)
     style = models.ManyToManyField(Style, verbose_name='Style',
                                    related_name='vendeurcategorie_style', blank=True)
     cible = models.ManyToManyField(Cible, verbose_name='Cible',
