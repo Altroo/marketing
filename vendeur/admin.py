@@ -133,7 +133,7 @@ class ProduitAdmin(admin.ModelAdmin):
 
 
 class GroupeDeProduitAdmin(admin.ModelAdmin):
-    list_display = ('titre_groupe_de_produit', 'get_nbr_produit', 'referencer_groupe_de_produit', 'utilisateur')
+    list_display = ('titre_groupe_de_produit', 'get_nbr_vendeurs', 'get_nbr_produit', 'referencer_groupe_de_produit', 'utilisateur')
     list_display_links = ('titre_groupe_de_produit',)
     list_editable = ('referencer_groupe_de_produit', 'utilisateur')
     list_filter = ('referencer_groupe_de_produit', 'utilisateur')
@@ -162,6 +162,25 @@ class GroupeDeProduitAdmin(admin.ModelAdmin):
 
     get_nbr_produit.short_description = 'Nbr de Tags'
     get_nbr_produit.allow_tags = True
+
+    def get_nbr_vendeurs(self, obj):
+        vendeur_categorie = VendeurCategorie.objects.filter(produit=obj.pk)
+        params = ''
+        param_set = set()
+        for vendeur in vendeur_categorie:
+            param_set.add(str(vendeur.vendeur.pk))
+        for param in param_set:
+            params += param + ','
+        nbr_vendeur = len(param_set)
+        if nbr_vendeur != 0:
+            html = '<a href="{reverse}?id__in={params}">{nbr}</a>'
+            html_ = format_html(html.format(reverse=reverse('admin:vendeur_vendeur_changelist'),
+                                            nbr=nbr_vendeur, params=params[:-1]))
+            return html_
+        return 0
+
+    get_nbr_vendeurs.short_description = 'Nbr de Vendeurs'
+    get_nbr_vendeurs.allow_tags = True
 
     def get_fields(self, request, obj=None):
         fields = super(GroupeDeProduitAdmin, self).get_fields(request, obj)
