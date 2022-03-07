@@ -145,8 +145,11 @@ class GroupeDeProduitAdmin(admin.ModelAdmin):
         params = ''
         param_set = set()
         for vendeur in vendeur_categorie:
-            titre_produit = vendeur.produit.all().values_list('pk', flat=True)[0]
-            param_set.add(str(titre_produit))
+            try:
+                titre_produit = vendeur.produit.all().values_list('pk', flat=True)[0]
+                param_set.add(str(titre_produit))
+            except IndexError:
+                continue
         for param in param_set:
             params += param + ','
         nbr_vendeur = len(param_set)
