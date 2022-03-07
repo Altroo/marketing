@@ -168,7 +168,7 @@ class GroupeDeProduitAdmin(admin.ModelAdmin):
     get_nbr_produit.allow_tags = True
 
     def get_nbr_vendeurs(self, obj):
-        vendeur_categorie = VendeurCategorie.objects.filter(produit=obj.pk)
+        vendeur_categorie = VendeurCategorie.objects.filter(groupe_de_produit=obj.pk)
         params = ''
         param_set = set()
         for vendeur in vendeur_categorie:
