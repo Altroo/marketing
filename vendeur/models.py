@@ -73,8 +73,8 @@ class GroupeDeProduit(Model):
         return '{}'.format(self.titre_groupe_de_produit)
 
     class Meta:
-        verbose_name = ' Produit'
-        verbose_name_plural = ' Produits'
+        verbose_name = ' Collection'
+        verbose_name_plural = ' Collections'
         ordering = ('pk',)
 
 

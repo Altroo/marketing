@@ -67,7 +67,7 @@ class CategorieAdmin(admin.ModelAdmin):
             return html_
         return 0
 
-    get_nbr_groupe_de_produit.short_description = 'Nbr Produits'
+    get_nbr_groupe_de_produit.short_description = 'Nbr Collections'
     get_nbr_groupe_de_produit.allow_tags = True
 
     def get_fields(self, request, obj=None):
