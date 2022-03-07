@@ -54,9 +54,12 @@ class CategorieAdmin(admin.ModelAdmin):
         params = ''
         param_set = set()
         for vendeur_categorie in vendeur_categories:
-            titre_groupe_de_produit = vendeur_categorie.groupe_de_produit.all().values_list('titre_groupe_de_produit',
-                                                                                            flat=True)[0]
-            param_set.add(titre_groupe_de_produit)
+            try:
+                titre_groupe_de_produit = vendeur_categorie.groupe_de_produit.all() \
+                    .values_list('titre_groupe_de_produit', flat=True)[0]
+                param_set.add(titre_groupe_de_produit)
+            except IndexError:
+                continue
         for param in param_set:
             params += param + ','
         nbr_group_de_produit = len(param_set)
@@ -133,7 +136,8 @@ class ProduitAdmin(admin.ModelAdmin):
 
 
 class GroupeDeProduitAdmin(admin.ModelAdmin):
-    list_display = ('titre_groupe_de_produit', 'get_nbr_vendeurs', 'get_nbr_produit', 'referencer_groupe_de_produit', 'utilisateur')
+    list_display = (
+        'titre_groupe_de_produit', 'get_nbr_vendeurs', 'get_nbr_produit', 'referencer_groupe_de_produit', 'utilisateur')
     list_display_links = ('titre_groupe_de_produit',)
     list_editable = ('referencer_groupe_de_produit', 'utilisateur')
     list_filter = ('referencer_groupe_de_produit', 'utilisateur')
@@ -153,7 +157,7 @@ class GroupeDeProduitAdmin(admin.ModelAdmin):
         for param in param_set:
             params += param + ','
         nbr_vendeur = len(param_set)
-        if nbr_vendeur:
+        if nbr_vendeur != 0:
             html = '<a href="{reverse}?id__in={params}">{nbr}</a>'
             html_ = format_html(html.format(reverse=reverse('admin:vendeur_produit_changelist'),
                                             nbr=nbr_vendeur, params=params[:-1]))
@@ -211,8 +215,11 @@ class StyleAdmin(admin.ModelAdmin):
         params = ''
         param_set = set()
         for vendeur in vendeur_categorie:
-            pk_produits = vendeur.produit.all().values_list('pk', flat=True)[0]
-            param_set.add(str(pk_produits))
+            try:
+                pk_produits = vendeur.produit.all().values_list('pk', flat=True)[0]
+                param_set.add(str(pk_produits))
+            except IndexError:
+                continue
         for param in param_set:
             params += param + ','
         nbr_vendeur = len(param_set)
