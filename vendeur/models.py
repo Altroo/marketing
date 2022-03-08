@@ -42,6 +42,7 @@ class Vendeur(Model):
 
 class Categorie(Model):
     titre_categorie = CICharField(max_length=255, verbose_name='Titre catégorie', unique=True)
+    page_title = models.CharField(verbose_name='Page title', blank=True, null=True, default=None, max_length=255)
     lien_categorie = models.CharField(verbose_name='URL', blank=True, null=True, default=None, max_length=255)
     meta_description_categorie = models.TextField(verbose_name='Meta-déscription', blank=True, null=True)
     h1_categorie = models.CharField(verbose_name='H1', max_length=150, blank=True, null=True)
@@ -61,6 +62,7 @@ class Categorie(Model):
 
 class GroupeDeProduit(Model):
     titre_groupe_de_produit = CICharField(max_length=255, verbose_name='Titre de produit', unique=True)
+    page_title = models.CharField(verbose_name='Page title', blank=True, null=True, default=None, max_length=255)
     lien_groupe_de_produit = models.CharField(verbose_name='URL', blank=True, null=True, default=None, max_length=255)
     meta_description_groupe_de_produit = models.TextField(verbose_name='Meta-déscription', blank=True, null=True)
     h1_groupe_de_produit = models.CharField(verbose_name='H1', max_length=150, blank=True, null=True)
@@ -80,6 +82,7 @@ class GroupeDeProduit(Model):
 
 class Produit(Model):
     titre_produit = CICharField(max_length=255, verbose_name='Titre Tag', unique=True)
+    page_title = models.CharField(verbose_name='Page title', blank=True, null=True, default=None, max_length=255)
     lien_produit = models.CharField(verbose_name='URL', blank=True, null=True, default=None, max_length=255)
     meta_description_produit = models.TextField(verbose_name='Meta-déscription', blank=True, null=True)
     h1_produit = models.CharField(verbose_name='H1', max_length=150, blank=True, null=True)
@@ -99,6 +102,7 @@ class Produit(Model):
 
 class Style(Model):
     titre_style = CICharField(max_length=255, verbose_name='Titre style', unique=True)
+    page_title = models.CharField(verbose_name='Page title', blank=True, null=True, default=None, max_length=255)
     lien_style = models.CharField(verbose_name='URL', blank=True, null=True, default=None, max_length=255)
     meta_description_style = models.TextField(verbose_name='Meta-déscription', blank=True, null=True)
     h1_style = models.CharField(verbose_name='H1', max_length=150, blank=True, null=True)

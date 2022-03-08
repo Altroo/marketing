@@ -80,7 +80,7 @@ class CategorieAdmin(admin.ModelAdmin):
             if 'Marketing Team' in groups_list:
                 fields = ('titre_categorie',)
             else:
-                fields = ['titre_categorie', 'lien_categorie',
+                fields = ['titre_categorie', 'page_title', 'lien_categorie',
                           'meta_description_categorie',
                           'h1_categorie',
                           'paragraphe_categorie', 'referencer_categorie']
@@ -126,7 +126,7 @@ class ProduitAdmin(admin.ModelAdmin):
             if 'Marketing Team' in groups_list:
                 fields = ('titre_produit',)
             else:
-                fields = ['titre_produit', 'lien_produit',
+                fields = ['titre_produit', 'page_title', 'lien_produit',
                           'meta_description_produit',
                           'h1_produit',
                           'paragraphe_produit', 'referencer_produit']
@@ -193,7 +193,7 @@ class GroupeDeProduitAdmin(admin.ModelAdmin):
             if 'Marketing Team' in groups_list:
                 fields = ('titre_groupe_de_produit',)
             else:
-                fields = ['titre_groupe_de_produit', 'lien_groupe_de_produit',
+                fields = ['titre_groupe_de_produit', 'page_title', 'lien_groupe_de_produit',
                           'meta_description_groupe_de_produit',
                           'h1_groupe_de_produit',
                           'paragraphe_groupe_de_produit', 'referencer_groupe_de_produit']
@@ -240,7 +240,7 @@ class StyleAdmin(admin.ModelAdmin):
             if 'Marketing Team' in groups_list:
                 fields = ('titre_style',)
             else:
-                fields = ['titre_style', 'lien_style',
+                fields = ['titre_style', 'page_title', 'lien_style',
                           'meta_description_style',
                           'h1_style',
                           'paragraphe_style', 'referencer_style']
