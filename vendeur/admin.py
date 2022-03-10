@@ -49,6 +49,28 @@ class CategorieAdmin(admin.ModelAdmin):
     ordering = ('-pk',)
     search_fields = ('titre_categorie',)
 
+    counted_fields = ('meta_description_categorie', 'paragraphe_categorie',)
+
+    # really for textareas
+    max_lengths = {'abstract': 400, }
+
+    class Media:
+        js = (
+            '//code.jquery.com/jquery-3.6.0.min.js',
+            'admin/js/char_count.js',
+        )
+
+    def formfield_for_dbfield(self, db_field, **kwargs):
+        field = super(CategorieAdmin, self).formfield_for_dbfield(db_field, **kwargs)
+        if db_field.name in self.counted_fields:
+            try:
+                len_ = self.max_lengths[db_field.name]
+                field.widget.attrs['maxlength'] = len_
+            except:
+                pass
+            field.widget.attrs['class'] = 'counted ' + field.widget.attrs.get('class', '')
+        return field
+
     def get_nbr_groupe_de_produit(self, obj):
         vendeur_categories = VendeurCategorie.objects.filter(categorie=obj.pk)
         params = ''
@@ -100,6 +122,28 @@ class ProduitAdmin(admin.ModelAdmin):
     ordering = ('-pk',)
     search_fields = ('titre_produit',)
 
+    counted_fields = ('meta_description_produit', 'paragraphe_produit',)
+
+    # really for textareas
+    max_lengths = {'abstract': 400, }
+
+    class Media:
+        js = (
+            '//code.jquery.com/jquery-3.6.0.min.js',
+            'admin/js/char_count.js',
+        )
+
+    def formfield_for_dbfield(self, db_field, **kwargs):
+        field = super(ProduitAdmin, self).formfield_for_dbfield(db_field, **kwargs)
+        if db_field.name in self.counted_fields:
+            try:
+                len_ = self.max_lengths[db_field.name]
+                field.widget.attrs['maxlength'] = len_
+            except:
+                pass
+            field.widget.attrs['class'] = 'counted ' + field.widget.attrs.get('class', '')
+        return field
+
     def get_nbr_vendeurs(self, obj):
         vendeur_categorie = VendeurCategorie.objects.filter(produit=obj.pk)
         params = ''
@@ -143,6 +187,28 @@ class GroupeDeProduitAdmin(admin.ModelAdmin):
     list_filter = ('referencer_groupe_de_produit', 'utilisateur')
     ordering = ('-pk',)
     search_fields = ('titre_groupe_de_produit',)
+
+    counted_fields = ('meta_description_groupe_de_produit', 'paragraphe_groupe_de_produit',)
+
+    # really for textareas
+    max_lengths = {'abstract': 400, }
+
+    class Media:
+        js = (
+            '//code.jquery.com/jquery-3.6.0.min.js',
+            'admin/js/char_count.js',
+        )
+
+    def formfield_for_dbfield(self, db_field, **kwargs):
+        field = super(GroupeDeProduitAdmin, self).formfield_for_dbfield(db_field, **kwargs)
+        if db_field.name in self.counted_fields:
+            try:
+                len_ = self.max_lengths[db_field.name]
+                field.widget.attrs['maxlength'] = len_
+            except:
+                pass
+            field.widget.attrs['class'] = 'counted ' + field.widget.attrs.get('class', '')
+        return field
 
     def get_nbr_produit(self, obj):
         vendeur_categorie = VendeurCategorie.objects.filter(groupe_de_produit=obj.pk)
@@ -209,6 +275,28 @@ class StyleAdmin(admin.ModelAdmin):
     list_filter = ('referencer_style', 'utilisateur')
     ordering = ('-pk',)
     search_fields = ('titre_style',)
+
+    counted_fields = ('meta_description_style', 'paragraphe_style',)
+
+    # really for textareas
+    max_lengths = {'abstract': 400, }
+
+    class Media:
+        js = (
+            '//code.jquery.com/jquery-3.6.0.min.js',
+            'admin/js/char_count.js',
+        )
+
+    def formfield_for_dbfield(self, db_field, **kwargs):
+        field = super(StyleAdmin, self).formfield_for_dbfield(db_field, **kwargs)
+        if db_field.name in self.counted_fields:
+            try:
+                len_ = self.max_lengths[db_field.name]
+                field.widget.attrs['maxlength'] = len_
+            except:
+                pass
+            field.widget.attrs['class'] = 'counted ' + field.widget.attrs.get('class', '')
+        return field
 
     def get_nbr_produit(self, obj):
         vendeur_categorie = VendeurCategorie.objects.filter(style=obj.pk)
