@@ -46,6 +46,7 @@ class Categorie(Model):
     lien_categorie = models.CharField(verbose_name='URL', blank=True, null=True, default=None, max_length=255)
     meta_description_categorie = models.TextField(verbose_name='Meta-déscription', blank=True, null=True)
     h1_categorie = models.CharField(verbose_name='H1', max_length=150, blank=True, null=True)
+    h2_categorie = models.CharField(verbose_name='H2', max_length=150, blank=True, null=True)
     paragraphe_categorie = models.TextField(verbose_name='Paragraphe', blank=True, null=True)
     referencer_categorie = models.BooleanField(verbose_name='Référencé', default=False)
     utilisateur = models.ForeignKey(User, verbose_name='Utilisateur', on_delete=models.SET_NULL,
@@ -66,6 +67,7 @@ class GroupeDeProduit(Model):
     lien_groupe_de_produit = models.CharField(verbose_name='URL', blank=True, null=True, default=None, max_length=255)
     meta_description_groupe_de_produit = models.TextField(verbose_name='Meta-déscription', blank=True, null=True)
     h1_groupe_de_produit = models.CharField(verbose_name='H1', max_length=150, blank=True, null=True)
+    h2_groupe_de_produit = models.CharField(verbose_name='H2', max_length=150, blank=True, null=True)
     paragraphe_groupe_de_produit = models.TextField(verbose_name='Paragraphe', blank=True, null=True)
     referencer_groupe_de_produit = models.BooleanField(verbose_name='Référencé', default=False)
     utilisateur = models.ForeignKey(User, verbose_name='Utilisateur', on_delete=models.SET_NULL,
@@ -86,6 +88,7 @@ class Produit(Model):
     lien_produit = models.CharField(verbose_name='URL', blank=True, null=True, default=None, max_length=255)
     meta_description_produit = models.TextField(verbose_name='Meta-déscription', blank=True, null=True)
     h1_produit = models.CharField(verbose_name='H1', max_length=150, blank=True, null=True)
+    h2_produit = models.CharField(verbose_name='H2', max_length=150, blank=True, null=True)
     paragraphe_produit = models.TextField(verbose_name='Paragraphe', blank=True, null=True)
     referencer_produit = models.BooleanField(verbose_name='Référencé', default=False)
     utilisateur = models.ForeignKey(User, verbose_name='Utilisateur', on_delete=models.SET_NULL,
@@ -106,6 +109,7 @@ class Style(Model):
     lien_style = models.CharField(verbose_name='URL', blank=True, null=True, default=None, max_length=255)
     meta_description_style = models.TextField(verbose_name='Meta-déscription', blank=True, null=True)
     h1_style = models.CharField(verbose_name='H1', max_length=150, blank=True, null=True)
+    h2_style = models.CharField(verbose_name='H2', max_length=150, blank=True, null=True)
     paragraphe_style = models.TextField(verbose_name='Paragraphe', blank=True, null=True)
     referencer_style = models.BooleanField(verbose_name='Référencé', default=False)
     utilisateur = models.ForeignKey(User, verbose_name='Utilisateur', on_delete=models.SET_NULL,
