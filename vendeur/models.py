@@ -24,6 +24,7 @@ class Vendeur(Model):
     type_vendeur = models.CharField(verbose_name='Type vendeur', max_length=2,
                                     choices=SELLER_TYPE_CHOICES, default='V')
     lien_vendeur = models.URLField(verbose_name='Lien du vendeur', blank=False, null=False, default=None)
+    remarque = models.TextField(verbose_name='Remarque', blank=True, null=True, default=None)
     pipass = models.BooleanField(verbose_name='Pipass', default=False)
     contacter = models.BooleanField(verbose_name='Contacté', default=False)
 

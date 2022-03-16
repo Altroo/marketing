@@ -18,7 +18,7 @@ class VendeurAdmin(NestedModelAdmin):
     list_display = ('nom_vendeur', 'get_categories_with_link', 'contacter', 'pipass')
     list_editable = ('contacter', 'pipass')
     list_display_links = ('nom_vendeur',)
-    search_fields = ('nom_vendeur', 'lien_vendeur', 'vendeurcategorie_vendeur__categorie__titre_categorie')
+    search_fields = ('nom_vendeur', 'lien_vendeur', 'remarque', 'vendeurcategorie_vendeur__categorie__titre_categorie')
     ordering = ('-pk',)
     date_hierarchy = 'created_date'
     list_filter = [
@@ -42,6 +42,7 @@ class VendeurAdmin(NestedModelAdmin):
 
 
 class CategorieAdmin(admin.ModelAdmin):
+    # get_nbr_groupe_de_produit = Nbr Collections
     list_display = ('titre_categorie', 'get_nbr_groupe_de_produit', 'referencer_categorie', 'utilisateur')
     list_display_links = ('titre_categorie',)
     list_editable = ('referencer_categorie', 'utilisateur')
@@ -180,6 +181,7 @@ class ProduitAdmin(admin.ModelAdmin):
 
 
 class GroupeDeProduitAdmin(admin.ModelAdmin):
+    # get_nbr_produit = Nbr de Tags
     list_display = (
         'titre_groupe_de_produit', 'get_nbr_vendeurs', 'get_nbr_produit', 'referencer_groupe_de_produit', 'utilisateur')
     list_display_links = ('titre_groupe_de_produit',)
@@ -269,6 +271,7 @@ class GroupeDeProduitAdmin(admin.ModelAdmin):
 
 
 class StyleAdmin(admin.ModelAdmin):
+    # get_nbr_produit = nbr de Tags
     list_display = ('titre_style', 'get_nbr_produit', 'referencer_style', 'utilisateur')
     list_display_links = ('titre_style',)
     list_editable = ('referencer_style', 'utilisateur')
@@ -362,3 +365,4 @@ class VendeurCategorieAdmin(admin.ModelAdmin):
 
 
 admin.site.register(VendeurCategorie, VendeurCategorieAdmin)
+admin.site.site_header = 'Marketing Application'
